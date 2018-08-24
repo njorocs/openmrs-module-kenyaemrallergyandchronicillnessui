@@ -52,7 +52,7 @@ div.section-title {
             <div class="section-title"></div>
 
             <div class="clear"></div>
-            <% if (allergies) { %>
+            <% if (chronicIllnesses) { %>
             <div class="grid">
 
                 <div class="column-one col-header">Chronic Illness</div>
@@ -64,7 +64,7 @@ div.section-title {
             <div class="clear"></div>
 
 
-            <% allergies.each { rel -> %>
+            <% chronicIllnesses.each { rel -> %>
 
             <div class="ke-stack-item ke-navigable">
                 <div class="grid">
@@ -91,7 +91,7 @@ div.section-title {
     <div align="center">
 
         <button type="button"
-                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateAllergiesAndChronicIllnessesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
+                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateChronicIllnessesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
             <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/>Add Chronic Illness
         </button>
 
