@@ -15,16 +15,13 @@ div.grid div {
 }
 
 div.column-one {
-    width: 180px;
+    width: 200px;
 }
 
 div.column-two {
-    width: 80px;
+    width: 200px;
 }
 
-div.column-three {
-    width: 160px;
-}
 .col-header {
     font-weight: bold;
     font-size: 14px;
@@ -49,7 +46,7 @@ div.section-title {
 <div class="ke-page-content">
 
     <div class="ke-panel-frame">
-        <div class="ke-panel-heading">Allergies and Chronic Illnesses</div>
+        <div class="ke-panel-heading">Chronic Illnesses</div>
 
         <div class="ke-panel-content">
             <div class="section-title"></div>
@@ -58,12 +55,9 @@ div.section-title {
             <% if (allergies) { %>
             <div class="grid">
 
-                <div class="column-one col-header">Allergen</div>
+                <div class="column-one col-header">Chronic Illness</div>
 
-                <div class="column-two col-header">Reaction</div>
-
-                <div class="column-three col-header">Severity</div>
-
+                <div class="column-two col-header">Date started</div>
 
             </div>
 
@@ -79,8 +73,6 @@ div.section-title {
 
                     <div class="column-two">${rel.reaction}</div>
 
-                    <div class="column-three">${rel.severity}</div>
-
                 </div>
 
                 <div class="clear"></div>
@@ -88,7 +80,7 @@ div.section-title {
             </div>
             <% }
             } else { %>
-            No Allergy found
+            No Chronic Illness found
             <% } %>
         </div>
 
@@ -100,7 +92,7 @@ div.section-title {
 
         <button type="button"
                 onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateAllergiesAndChronicIllnessesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
-            <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/>Add Allergy
+            <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/>Add Chronic Illness
         </button>
 
     </div>

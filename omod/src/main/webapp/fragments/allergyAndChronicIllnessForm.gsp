@@ -6,8 +6,9 @@
 
 <form id="edit-allergies-and-chronicillness-form" method="post"
       action="${ui.actionLink("kenyaemrallergyandchronicillnessui", "allergyAndChronicIllnessForm", "saveAllergy")}">
+    <input type="hidden" name="patientId" value="${patient.patientId}"/>
     <% if (command.original) { %>
-    <input type="hidden" name="id" value="${command.original.id}"/>
+    <input type="hidden" name="id" value="${command.original.allergyId}"/>
     <% } %>
 
     <div class="ke-panel-content">
@@ -33,11 +34,10 @@
                             </tr>
                                     <tr>
                                         <td>
-                                            <select name="allergy" id="allergy">
+                                            <select name="allergenConceptId" id="allergen">
                                                 <option></option>
                                                 <% allergenOptions.each { %>
-                                                <option ${
-                                                        (command.allergy == null) ? "" : it.value == command.allergy ? "selected" : ""}
+                                                <option ${(command.allergy == null) ? "" : it.value == command.allergy ? "selected" : ""}
                                                         value="${it.value}">${it.label}</option>
                                                 <% } %>
                                             </select>
@@ -46,8 +46,7 @@
                                             <select name="reaction" id="reaction">
                                                 <option></option>
                                                 <% reactionOptions.each { %>
-                                                <option ${
-                                                        (command.reaction == null) ? "" : it.value == command.reaction ? "selected" : ""}
+                                                <option ${(command.reaction == null) ? "" : it.value == command.reaction ? "selected" : ""}
                                                         value="${it.value}">${it.label}</option>
                                                 <% } %>
                                             </select>
@@ -56,8 +55,7 @@
                                             <select name="severity" id="severity">
                                                 <option></option>
                                                 <% severityOptions.each { %>
-                                                <option ${
-                                                        (command.severity == null) ? "" : it.value == command.severity ? "selected" : ""}
+                                                <option ${(command.severity == null) ? "" : it.value == command.severity ? "selected" : ""}
                                                         value="${it.value}">${it.label}</option>
                                                 <% } %>
                                             </select>
