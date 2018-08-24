@@ -175,17 +175,17 @@
         <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="patient_id"
                                  constraintName="ChronicIllness_patient_id_fk" referencedColumnNames="patient_id"
                                  referencedTableName="patient"/>
-        <addForeignKeyConstraint baseTableName="ChronicIllness" baseColumnNames="coded_illness"
+        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="coded_illness"
                                  constraintName="chronicIllness_coded_illness_fk" referencedColumnNames="concept_id"
                                  referencedTableName="concept"/>
         <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="severity_concept_id"
                                  constraintName="allergy_severity_concept_id_fk" referencedColumnNames="concept_id"
                                  referencedTableName="concept"/>
-        <addForeignKeyConstraint baseTableName="ChronicIllness" baseColumnNames="creator" constraintName="ChronicIllness_creator_fk"
+        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="creator" constraintName="ChronicIllness_creator_fk"
                                  referencedColumnNames="user_id" referencedTableName="users"/>
-        <addForeignKeyConstraint baseTableName="ChronicIllness" baseColumnNames="changed_by" constraintName="ChronicIllness_changed_by_fk"
+        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="changed_by" constraintName="ChronicIllness_changed_by_fk"
                                  referencedColumnNames="user_id" referencedTableName="users"/>
-        <addForeignKeyConstraint baseTableName="ChronicIllness" baseColumnNames="voided_by"
+        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="voided_by"
                                  constraintName="ChronicIllness_voided_by_fk" referencedColumnNames="user_id"
                                  referencedTableName="users"/>
     </changeSet>

@@ -25,6 +25,14 @@ div.column-two {
 div.column-three {
     width: 160px;
 }
+
+div.column-four {
+    width: 200px;
+}
+
+div.column-five {
+    width: 200px;
+}
 .col-header {
     font-weight: bold;
     font-size: 14px;
@@ -52,7 +60,10 @@ div.section-title {
         <div class="ke-panel-heading">Allergies and Chronic Illnesses</div>
 
         <div class="ke-panel-content">
-            <div class="section-title"></div>
+            <fieldset>
+                <legend>Allergies</legend>
+
+                <div class="section-title"></div>
 
             <div class="clear"></div>
             <% if (allergies) { %>
@@ -90,6 +101,46 @@ div.section-title {
             } else { %>
             No Allergy found
             <% } %>
+            </fieldset>
+
+            <fieldset>
+                <legend>Chronic Illnesses</legend>
+
+                <div class="section-title"></div>
+
+                <div class="clear"></div>
+                <% if (chronicIllnesses) { %>
+                <div class="grid">
+
+                    <div class="column-four col-header">Chronic Illness</div>
+
+                    <div class="column-five col-header">Onset Date</div>
+
+                </div>
+
+                <div class="clear"></div>
+
+
+                <% chronicIllnesses.each { var -> %>
+
+                <div class="ke-stack-item ke-navigable">
+                    <div class="grid">
+
+                        <div class="column-four">${var.codedIllness}</div>
+
+                        <div class="column-five">${var.onsetDate}</div>
+
+
+                    </div>
+
+                    <div class="clear"></div>
+
+                </div>
+                <% }
+                } else { %>
+                No Chronic Illness found
+                <% } %>
+            </fieldset>
         </div>
 
         <div class="clear"></div>
@@ -99,9 +150,15 @@ div.section-title {
     <div align="center">
 
         <button type="button"
-                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateAllergiesAndChronicIllnessesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
+                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateAllergiesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
             <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/>Add Allergy
         </button>
+
+        <button type="button"
+                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateChronicIllnessesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
+            <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/>Add Chronic Illness
+        </button>
+
 
     </div>
 

@@ -1,14 +1,23 @@
 <%
     ui.decorateWith("kenyaui", "panel", [heading: (command.original ? "Edit" : "Add") + " Allergies", frameOnly: true])
 
+    def onSetDate = [
+            [
+
+
+                    [object: command, property: "onsetDate", label: "Illness Start Date"]
+
+
+            ]
+    ]
 %>
 
 
-<form id="edit-allergies-and-chronicillness-form" method="post"
-      action="${ui.actionLink("kenyaemrallergyandchronicillnessui", "allergyAndChronicIllnessForm", "saveAllergy")}">
+<form id="edit-chronicillness-form" method="post"
+      action="${ui.actionLink("kenyaemrallergyandchronicillnessui", "chronicIllnessForm", "saveChronicIllness")}">
     <input type="hidden" name="patientId" value="${patient.patientId}"/>
     <% if (command.original) { %>
-    <input type="hidden" name="id" value="${command.original.allergyId}"/>
+    <input type="hidden" name="id" value="${command.original.illnessId}"/>
     <% } %>
 
     <div class="ke-panel-content">
@@ -20,45 +29,29 @@
         </div>
 
         <fieldset class="patient-details">
-            <legend>Known Allergies</legend>
+            <legend>Known Chronic Illnesses</legend>
 
-            <table id="tbl-known-allergies">
+            <table id="tbl-known-chronicillnesses">
                 <tr>
-                    <td colspan="2">Record any known allergies<br/>
+                    <td colspan="2">Record any known Chronic Illnesses<br/>
                         <table>
                             <tr>
-                                <th>Causative agent</th>
-                                <th>Reaction</th>
-                                <th>Severity</th>
+                                <th>Chronic Illness</th>
+                                <th>Onset Date</th>
 
                             </tr>
                                     <tr>
                                         <td>
-                                            <select name="allergenConceptId" id="allergen">
+                                            <select name="illnessConceptId" id="illnessConceptId">
                                                 <option></option>
-                                                <% allergenOptions.each { %>
-                                                <option ${(command.allergy == null) ? "" : it.value == command.allergy ? "selected" : ""}
+                                                <% chronicIllnessesOptions.each { %>
+                                                <option ${(command.chronicIllness == null) ? "" : it.value == command.chronicIllness ? "selected" : ""}
                                                         value="${it.value}">${it.label}</option>
                                                 <% } %>
                                             </select>
                                         </td>
-                                        <td>
-                                            <select name="reaction" id="reaction">
-                                                <option></option>
-                                                <% reactionOptions.each { %>
-                                                <option ${(command.reaction == null) ? "" : it.value == command.reaction ? "selected" : ""}
-                                                        value="${it.value}">${it.label}</option>
-                                                <% } %>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="severity" id="severity">
-                                                <option></option>
-                                                <% severityOptions.each { %>
-                                                <option ${(command.severity == null) ? "" : it.value == command.severity ? "selected" : ""}
-                                                        value="${it.value}">${it.label}</option>
-                                                <% } %>
-                                            </select>
+                                        <td style="width: 270px">
+                                            ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "onsetDate"])}
                                         </td>
 
                                     </tr>
