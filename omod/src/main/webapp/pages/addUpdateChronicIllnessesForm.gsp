@@ -11,5 +11,5 @@
     </div>
 </div>
 <div class="ke-page-content">
-    ${ ui.includeFragment("kenyaemrallergyandchronicillnessui", "chronicIllnessForm", [ patientId: patient.patientId, allergyId: allergyId != null? allergy.allergyId : null, returnUrl: ui.pageLink("kenyaemrallergyandchronicillnessui", "allergiesAndChronicIllnessesList", [patientId: patient.patientId]) ]) }
-</div>
+    ${ ui.includeFragment("kenyaemrallergyandchronicillnessui", "chronicIllnessForm", [ patientId: patient.id, illnessId: chronicIllness != null? chronicIllness.id : null, returnUrl: ui.pageLink("kenyaemrallergyandchronicillnessui", "allergiesAndChronicIllnessesList", [patientId: patient.patientId]) ]) }
+   </div>

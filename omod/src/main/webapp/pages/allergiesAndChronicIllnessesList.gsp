@@ -150,12 +150,12 @@ div.section-title {
     <div align="center">
 
         <button type="button"
-                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateAllergiesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
+                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateAllergiesForm", [ patientId: patient.id,  returnUrl: ui.thisUrl() ])}')">
             <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/>Add Allergy
         </button>
 
         <button type="button"
-                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateChronicIllnessesForm", [ patientId: patient.patientId,  returnUrl: ui.thisUrl() ])}')">
+                onclick="ui.navigate('${ ui.pageLink("kenyaemrallergyandchronicillnessui", "addUpdateChronicIllnessesForm", [ patientId: patient.id,  returnUrl: ui.thisUrl() ])}')">
             <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/>Add Chronic Illness
         </button>
 

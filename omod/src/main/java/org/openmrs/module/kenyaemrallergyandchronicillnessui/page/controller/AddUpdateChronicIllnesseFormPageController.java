@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class AddUpdateChronicIllnesseFormPageController {
 
-    public void controller(@RequestParam("patientId") Patient patientId,
+    public void controller(@RequestParam("patientId") Patient patient,
                            @RequestParam(value = "illnessId", required = false) ChronicIllness chronicIllness,
                            @RequestParam("returnUrl") String url,
                            PageModel model) {
 
-        model.addAttribute("patient", patientId);
-        model.addAttribute("illnessId", chronicIllness);
+        model.addAttribute("patient", patient);
+        model.addAttribute("chronicIllness", chronicIllness);
         model.addAttribute("returnUrl", url);
 
     }

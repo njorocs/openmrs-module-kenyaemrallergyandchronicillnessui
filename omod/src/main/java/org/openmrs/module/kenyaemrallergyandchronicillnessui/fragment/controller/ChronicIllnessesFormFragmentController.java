@@ -27,15 +27,15 @@ import static org.openmrs.module.kenyaemrallergyandchronicillnessui.fragment.con
 
 public class ChronicIllnessesFormFragmentController {
 
-    public void controller(@FragmentParam(value = "patientId") Patient patientId,
+    public void controller(@FragmentParam(value = "patientId") Patient patient,
                            @FragmentParam(value = "illnessId", required = false) ChronicIllness chronicIllness,
                            PageModel pageModel) {
 
        /* Allergy exists = allergy != null ? allergy : null;*/
         ChronicIllness exists = chronicIllness != null ? chronicIllness : null;
-        pageModel.addAttribute("command", addUpdateChronicIllnessesForm(patientId, exists));
+        pageModel.addAttribute("command", addUpdateChronicIllnessesForm(patient, exists));
         pageModel.addAttribute("chronicIllnessesOptions", getChronicIllnessesOptions());
-        pageModel.addAttribute("patient", patientId);
+        pageModel.addAttribute("patient", patient);
     }
     protected static CIDAO cidao = null;
 
@@ -68,11 +68,11 @@ public class ChronicIllnessesFormFragmentController {
         ui.validate(form, form, null);
         ChronicIllness chronicIllness = form.save();
 
-        return SimpleObject.create("patientId", chronicIllness.getPatient().getId());
+        return SimpleObject.create("id", chronicIllness.getPatient().getId());
 
     }
 
-    public EditChronicIllnessForm addUpdateChronicIllnessesForm( @RequestParam(value = "patientId") Patient patient,@RequestParam(value = "chronicIllnessId", required = false) ChronicIllness chronicIllness) {
+    public EditChronicIllnessForm addUpdateChronicIllnessesForm( @RequestParam(value = "patientId") Patient patient,@RequestParam(value = "id", required = false) ChronicIllness chronicIllness) {
         if (chronicIllness != null) {
 
             return new EditChronicIllnessForm(patient,chronicIllness);

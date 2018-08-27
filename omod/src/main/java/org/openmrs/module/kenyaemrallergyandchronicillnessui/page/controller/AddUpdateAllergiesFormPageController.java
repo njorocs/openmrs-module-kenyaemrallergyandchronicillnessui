@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class AddUpdateAllergiesFormPageController {
 
-    public void controller(@RequestParam("patientId") Patient patientId,
+    public void controller(@RequestParam("patientId") Patient patient,
                            @RequestParam(value = "allergyId", required = false) Allergy allergy,
                            @RequestParam("returnUrl") String url,
                            PageModel model) {
 
-        model.addAttribute("patient", patientId);
+        model.addAttribute("patient", patient);
         model.addAttribute("allergyId", allergy);
         model.addAttribute("returnUrl", url);
 

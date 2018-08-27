@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("kenyaui", "panel", [heading: (command.original ? "Edit" : "Add") + " Allergies", frameOnly: true])
+    ui.decorateWith("kenyaui", "panel", [heading: (command.original ? "Edit" : "Add") + " Chronic Illness", frameOnly: true])
 
     def onSetDate = [
             [
@@ -15,10 +15,10 @@
 
 <form id="edit-chronicillness-form" method="post"
       action="${ui.actionLink("kenyaemrallergyandchronicillnessui", "chronicIllnessForm", "saveChronicIllness")}">
-    <input type="hidden" name="patientId" value="${patient.patientId}"/>
     <% if (command.original) { %>
-    <input type="hidden" name="id" value="${command.original.illnessId}"/>
-    <% } %>
+    <input type="hidden" name="chronicIllnessId" value="${command.original.illnessId}"/>
+    <input type="hidden" name="patientId" value="${currentPatient.id}"/>
+      <% } %>
 
     <div class="ke-panel-content">
 
