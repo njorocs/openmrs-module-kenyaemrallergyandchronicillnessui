@@ -40,4 +40,11 @@ public class HibernateCIDAO implements CIDAO {
         Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(ChronicIllness.class);
     }
 
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

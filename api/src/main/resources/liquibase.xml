@@ -139,7 +139,7 @@
     <changeSet id="RA-356-create-ChronicIllness-table-rev1" author="schege">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="ChronicIllness"/>
+                <tableExists tableName="Kenyaemr_ChronicIllness"/>
             </not>
         </preConditions>
         <comment>Create Kenyaemr_ChronicIllness table</comment>
@@ -189,8 +189,5 @@
                                  constraintName="ChronicIllness_voided_by_fk" referencedColumnNames="user_id"
                                  referencedTableName="users"/>
     </changeSet>
-
-
-
 
 </databaseChangeLog>
