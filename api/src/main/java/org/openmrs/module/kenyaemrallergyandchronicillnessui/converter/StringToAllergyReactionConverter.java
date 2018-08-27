@@ -16,7 +16,8 @@ public class StringToAllergyReactionConverter implements Converter<String, Aller
         if (org.apache.commons.lang.StringUtils.isBlank(s)) {
             return null;
         } else if (ConversionUtil.onlyDigits(s)) {
-            return patientService.getAllergyReactionById(Integer.valueOf(s));
+            //return patientService.getAllergyReactionById(Integer.valueOf(s));
+            return null;
         }
         return null;
     }

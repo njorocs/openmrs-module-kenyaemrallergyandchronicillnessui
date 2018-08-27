@@ -1,13 +1,9 @@
 package org.openmrs.module.kenyaemrallergyandchronicillnessui.fragment.controller;
 
-import org.openmrs.Concept;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
-import org.openmrs.activelist.Allergy;
-import org.openmrs.activelist.AllergySeverity;
-import org.openmrs.activelist.AllergyType;
-import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.allergyapi.Allergies;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.CIService;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.ChronicIllness;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.db.CIDAO;
@@ -23,15 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
-import static org.openmrs.module.kenyaemrallergyandchronicillnessui.fragment.controller.AllergyFormFragmentController.patientService;
-
-public class ChronicIllnessesFormFragmentController {
-
-    public void controller(@FragmentParam(value = "patientId") Patient patient,
+public class ChronicIllnessFormFragmentController {
+    protected static final Log log = LogFactory.getLog(ChronicIllnessFormFragmentController.class);
+    public void controller(@RequestParam(value = "patientId") Patient patient,
                            @FragmentParam(value = "illnessId", required = false) ChronicIllness chronicIllness,
                            PageModel pageModel) {
 
-       /* Allergy exists = allergy != null ? allergy : null;*/
+        log.info("Patient == > "+patient);
         ChronicIllness exists = chronicIllness != null ? chronicIllness : null;
         pageModel.addAttribute("command", addUpdateChronicIllnessesForm(patient, exists));
         pageModel.addAttribute("chronicIllnessesOptions", getChronicIllnessesOptions());
