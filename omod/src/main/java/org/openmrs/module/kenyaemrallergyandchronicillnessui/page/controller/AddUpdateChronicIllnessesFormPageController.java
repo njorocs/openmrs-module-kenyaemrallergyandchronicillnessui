@@ -6,7 +6,7 @@ import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.ChronicIllness;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
-public class AddUpdateChronicIllnesseFormPageController {
+public class AddUpdateChronicIllnessesFormPageController {
 
     public void controller(@RequestParam("patientId") Patient patient,
                            @RequestParam(value = "illnessId", required = false) ChronicIllness chronicIllness,
