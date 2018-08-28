@@ -74,13 +74,14 @@ public class ChronicIllnessFormFragmentController {
         chronicIllnessesOptions.put(114662, "Osteoporosis");
         chronicIllnessesOptions.put(117703, "Sickle Cell Anaemia");
         chronicIllnessesOptions.put(118976, "Thyroid disease");
+
         return chronicIllnessesOptions;
     }
 
     public SimpleObject saveChronicIllness(@MethodParam("addUpdateChronicIllnessesForm") @BindParams EditChronicIllnessForm form, UiUtils ui) {
         ui.validate(form, form, null);
         ChronicIllness chronicIllness = form.save();
-        return SimpleObject.create("patientId", chronicIllness.getPatient().getPatientId());
+        return SimpleObject.create("patientId", chronicIllness.getPatient());
 
     }
 
@@ -91,6 +92,7 @@ public class ChronicIllnessFormFragmentController {
             return new EditChronicIllnessForm(patient,chronicIllness);
         } else {
             return new EditChronicIllnessForm(patient);
+
         }
     }
 
