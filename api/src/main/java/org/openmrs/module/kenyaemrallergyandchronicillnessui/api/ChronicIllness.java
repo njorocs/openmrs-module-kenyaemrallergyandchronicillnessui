@@ -12,7 +12,7 @@ public class ChronicIllness  extends BaseOpenmrsData {
     private Date onsetDate;
     private String uuid;
 
-    public ChronicIllness() {
+     public ChronicIllness() {
     }
 
     public ChronicIllness(Integer id, Patient patient, Integer codedIllness, Date onsetDate, String uuid) {

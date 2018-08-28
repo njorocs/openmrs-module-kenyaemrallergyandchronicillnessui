@@ -15,9 +15,10 @@
 
 <form id="edit-chronicillness-form" method="post"
       action="${ui.actionLink("kenyaemrallergyandchronicillnessui", "chronicIllnessForm", "saveChronicIllness")}">
+    <input type="hidden" name="patientId" value="${currentPatient.id}"/>
     <% if (command.original) { %>
     <input type="hidden" name="chronicIllnessId" value="${command.original.illnessId}"/>
-    <input type="hidden" name="patientId" value="${currentPatient.id}"/>
+
       <% } %>
 
     <div class="ke-panel-content">

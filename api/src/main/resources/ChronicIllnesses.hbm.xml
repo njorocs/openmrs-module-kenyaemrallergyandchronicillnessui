@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.kenyaemrallergyandchronicillnessui">
+<hibernate-mapping package="org.openmrs.module.kenyaemrallergyandchronicillnessui.api">
 
     <class name="org.openmrs.module.kenyaemrallergyandchronicillnessui.api.ChronicIllness"
            table="Kenyaemr_ChronicIllness">

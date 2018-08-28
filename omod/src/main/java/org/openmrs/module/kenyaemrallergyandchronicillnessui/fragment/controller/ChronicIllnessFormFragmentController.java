@@ -26,15 +26,15 @@ import java.util.*;
 import static org.openmrs.module.kenyaemrallergyandchronicillnessui.fragment.controller.AllergyFormFragmentController.patientService;
 
 public class ChronicIllnessFormFragmentController {
-    public void controller(@FragmentParam (value = "patientId") Patient patientId,
+    public void controller(@FragmentParam (value = "patientId") Patient patient,
                            @FragmentParam(value = "illnessId", required = false) ChronicIllness chronicIllness,
                            PageModel pageModel) {
 
        /* Allergy exists = allergy != null ? allergy : null;*/
         ChronicIllness exists = chronicIllness != null ? chronicIllness : null;
-        pageModel.addAttribute("command", addUpdateChronicIllnessesForm(patientId, exists));
+        pageModel.addAttribute("command", addUpdateChronicIllnessesForm(patient, exists));
         pageModel.addAttribute("chronicIllnessesOptions", getChronicIllnessesOptions());
-        pageModel.addAttribute("patient", patientId);
+        pageModel.addAttribute("patient", patient);
     }
     protected static CIDAO cidao = null;
 
