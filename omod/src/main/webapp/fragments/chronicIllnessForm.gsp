@@ -45,13 +45,13 @@
                                             <select name="illnessConceptId" id="illnessConceptId">
                                                 <option></option>
                                                 <% chronicIllnessesOptions.each { %>
-                                                <option ${(command.chronicIllness == null) ? "" : it.value == command.chronicIllness ? "selected" : ""}
+                                                <option ${(command.original == null) ? "" : it.value == command.original ? "selected" : ""}
                                                         value="${it.value}">${it.label}</option>
                                                 <% } %>
                                             </select>
                                         </td>
                                         <td style="width: 270px">
-                                            ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "onsetDate"])}
+                                            ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "onSetDate"])}
                                         </td>
 
                                     </tr>
@@ -63,7 +63,7 @@
 
         <div class="ke-panel-footer">
             <button type="submit">
-                <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> ${command.original ? "Save Changes" : "Save Allergy"}
+                <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> ${command.original ? "Save Changes" : "Save Illness"}
             </button>
             <% if (config.returnUrl) { %>
             <button type="button" class="cancel-button"><img

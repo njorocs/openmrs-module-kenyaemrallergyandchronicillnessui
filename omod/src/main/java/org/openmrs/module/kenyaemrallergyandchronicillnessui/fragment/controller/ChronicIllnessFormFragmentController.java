@@ -1,9 +1,13 @@
 package org.openmrs.module.kenyaemrallergyandchronicillnessui.fragment.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
 import org.openmrs.Patient;
+import org.openmrs.activelist.Allergy;
+import org.openmrs.activelist.AllergySeverity;
+import org.openmrs.activelist.AllergyType;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.allergyapi.Allergies;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.CIService;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.ChronicIllness;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.db.CIDAO;
@@ -19,17 +23,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
+import static org.openmrs.module.kenyaemrallergyandchronicillnessui.fragment.controller.AllergyFormFragmentController.patientService;
+
 public class ChronicIllnessFormFragmentController {
-    protected static final Log log = LogFactory.getLog(ChronicIllnessFormFragmentController.class);
-    public void controller(@RequestParam(value = "patientId") Patient patient,
+    public void controller(@FragmentParam (value = "patientId") Patient patientId,
                            @FragmentParam(value = "illnessId", required = false) ChronicIllness chronicIllness,
                            PageModel pageModel) {
 
-        log.info("Patient == > "+patient);
+       /* Allergy exists = allergy != null ? allergy : null;*/
         ChronicIllness exists = chronicIllness != null ? chronicIllness : null;
-        pageModel.addAttribute("command", addUpdateChronicIllnessesForm(patient, exists));
+        pageModel.addAttribute("command", addUpdateChronicIllnessesForm(patientId, exists));
         pageModel.addAttribute("chronicIllnessesOptions", getChronicIllnessesOptions());
-        pageModel.addAttribute("patient", patient);
+        pageModel.addAttribute("patient", patientId);
     }
     protected static CIDAO cidao = null;
 
@@ -44,34 +49,50 @@ public class ChronicIllnessFormFragmentController {
 
     private Map<Integer, String> createchronicIllnessesOptions() {
         Map<Integer, String> chronicIllnessesOptions = new HashMap<Integer, String>();
-        chronicIllnessesOptions.put(162543, "Beef");
-        chronicIllnessesOptions.put(72609, "Caffeine");
-        chronicIllnessesOptions.put(162544, "Chocolate");
-        chronicIllnessesOptions.put(162545, "Dairy Food");
-        chronicIllnessesOptions.put(162171, "Eggs");
-        chronicIllnessesOptions.put(162546, "Fish");
-        chronicIllnessesOptions.put(162547, "Milk Protein");
-        chronicIllnessesOptions.put(162172, "Peanuts");
-        chronicIllnessesOptions.put(162175, "Shellfish");
-        chronicIllnessesOptions.put(162176, "Soy");
-        chronicIllnessesOptions.put(162548, "Strawberries");
+        chronicIllnessesOptions.put(149019, "Alzheimer's Disease and other Dementias");
+        chronicIllnessesOptions.put(148432, "Arthritis");
+        chronicIllnessesOptions.put(153754, "Asthma");
+        chronicIllnessesOptions.put(159351, "Cancer");
+        chronicIllnessesOptions.put(119270, "Cardiovascular diseases");
+        chronicIllnessesOptions.put(120637, "Chronic Hepatitis");
+        chronicIllnessesOptions.put(145438, "Chronic Kidney Disease");
+        chronicIllnessesOptions.put(1295, "Chronic Obstructive Pulmonary Disease(COPD)");
+        chronicIllnessesOptions.put(120576, "Chronic Renal Failure");
+        chronicIllnessesOptions.put(119692, "Cystic Fibrosis");
+        chronicIllnessesOptions.put(120291, "Deafness and Hearing impairment");
+        chronicIllnessesOptions.put(119481, "Diabetes");
+        chronicIllnessesOptions.put(118631, "Endometriosis");
+        chronicIllnessesOptions.put(117855, "Epilepsy");
+        chronicIllnessesOptions.put(117789, "Glaucoma");
+        chronicIllnessesOptions.put(139071, "Heart Disease");
+        chronicIllnessesOptions.put(115728, "Hyperlipidaemia");
+        chronicIllnessesOptions.put(117399, "Hypertension");
+        chronicIllnessesOptions.put(117321, "Hypothyroidism");
+        chronicIllnessesOptions.put(151342, "Mental illness");
+        chronicIllnessesOptions.put(133687, "Multiple Sclerosis");
+        chronicIllnessesOptions.put(115115, "Obesity");
+        chronicIllnessesOptions.put(114662, "Osteoporosis");
+        chronicIllnessesOptions.put(117703, "Sickle Cell Anaemia");
+        chronicIllnessesOptions.put(118976, "Thyroid disease");
+
         return chronicIllnessesOptions;
     }
 
     public SimpleObject saveChronicIllness(@MethodParam("addUpdateChronicIllnessesForm") @BindParams EditChronicIllnessForm form, UiUtils ui) {
         ui.validate(form, form, null);
         ChronicIllness chronicIllness = form.save();
-
-        return SimpleObject.create("id", chronicIllness.getPatient().getId());
+        return SimpleObject.create("patientId", chronicIllness.getPatient());
 
     }
 
     public EditChronicIllnessForm addUpdateChronicIllnessesForm( @RequestParam(value = "patientId") Patient patient,@RequestParam(value = "id", required = false) ChronicIllness chronicIllness) {
+
         if (chronicIllness != null) {
 
             return new EditChronicIllnessForm(patient,chronicIllness);
         } else {
             return new EditChronicIllnessForm(patient);
+
         }
     }
 
@@ -110,9 +131,9 @@ public class ChronicIllnessFormFragmentController {
             toSave.setPatient(patient);
             toSave.setCodedIllness(illnessConceptId);
             toSave.setOnsetDate(onSetDate);
-            /*cidao.saveChronicIllness(toSave);*/
-            Context.getService(CIService.class).saveChronicIllness(toSave);
-            return toSave;
+            ChronicIllness illness= Context.getService(CIService.class).saveChronicIllness(toSave);
+
+            return illness;
         }
 
         @Override
@@ -120,7 +141,7 @@ public class ChronicIllnessFormFragmentController {
 
         }
 
-             public ChronicIllness getOriginal() {
+        public ChronicIllness getOriginal() {
             return original;
         }
 
