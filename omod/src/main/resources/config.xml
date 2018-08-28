@@ -34,7 +34,7 @@
 
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-
+		ChronicIllness.hbm.xml
 	</mappingFiles>
 
 	<!-- Internationalization -->

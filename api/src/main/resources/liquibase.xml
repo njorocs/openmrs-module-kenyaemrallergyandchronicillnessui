@@ -4,146 +4,16 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <!--
-        Create allergy table
-    -->
-    <changeSet id="RA-354-create-allergy-table-rev1" author="fbiedrzycki">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="allergy"/>
-            </not>
-        </preConditions>
-        <comment>Create allergy table</comment>
-        <createTable tableName="allergy">
-            <column name="allergy_id" autoIncrement="true" type="int">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
-            </column>
-            <column name="patient_id" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="severity_concept_id" type="int"/>
-            <column name="coded_allergen" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="non_coded_allergen" type="varchar(255)">
-            </column>
-            <column name="allergen_type" type="varchar(50)">
-                <constraints nullable="false"/></column>
-            <column name="comment" type="varchar(1024)"></column>
-            <column name="creator" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date_created" type="datetime">
-                <constraints nullable="false"/>
-            </column>
-            <column name="changed_by" type="int"/>
-            <column name="date_changed" type="datetime"/>
-            <column name="voided" type="tinyint" defaultValue="0">
-                <constraints nullable="false"/>
-            </column>
-            <column name="voided_by" type="int"></column>
-            <column name="date_voided" type="datetime"></column>
-            <column name="void_reason" type="varchar(255)"></column>
-            <column name="uuid" type="char(38)"></column>
-        </createTable>
-        <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="patient_id"
-                                 constraintName="allergy_patient_id_fk" referencedColumnNames="patient_id"
-                                 referencedTableName="patient"/>
-        <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="coded_allergen"
-                                 constraintName="allergy_coded_allergen_fk" referencedColumnNames="concept_id"
-                                 referencedTableName="concept"/>
-        <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="severity_concept_id"
-                                 constraintName="allergy_severity_concept_id_fk" referencedColumnNames="concept_id"
-                                 referencedTableName="concept"/>
-        <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="creator" constraintName="allergy_creator_fk"
-                                 referencedColumnNames="user_id" referencedTableName="users"/>
-        <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="changed_by" constraintName="allergy_changed_by_fk"
-                                 referencedColumnNames="user_id" referencedTableName="users"/>
-        <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="voided_by"
-                                 constraintName="allergy_voided_by_fk" referencedColumnNames="user_id"
-                                 referencedTableName="users"/>
-    </changeSet>
-    <!--
-            Create allergy_reaction table
-        -->
-    <changeSet id="RA-355-create-allergy-reaction-table" author="fbiedrzycki">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="allergy_reaction"/>
-            </not>
-            <tableExists tableName="allergy"></tableExists>
-        </preConditions>
-        <comment>Create allergy_reaction table</comment>
-        <createTable tableName="allergy_reaction">
-            <column name="allergy_reaction_id" autoIncrement="true" type="int">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
-            </column>
-            <column name="allergy_id" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="reaction_concept_id" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="reaction_non_coded" type="varchar(255)">
-            </column>
-            <column name="uuid" type="char(38)"></column>
-        </createTable>
-        <addForeignKeyConstraint baseTableName="allergy_reaction" baseColumnNames="allergy_id"
-                                 constraintName="allergy_reaction_allergy_id_fk" referencedColumnNames="allergy_id"
-                                 referencedTableName="allergy"/>
-        <addForeignKeyConstraint baseTableName="allergy_reaction" baseColumnNames="reaction_concept_id"
-                                 constraintName="allergy_reaction_reaction_concept_id_fk"
-                                 referencedColumnNames="concept_id"
-                                 referencedTableName="concept"/>
-    </changeSet>
-
-    <changeSet id="RA-360-Add-allergy-status-to-patient-2" author="rpuzdrowski">
-        <preConditions onFail="MARK_RAN">
-            <tableExists tableName="patient"></tableExists>
-            <not>
-                <columnExists tableName="patient" columnName="allergy_status"/>
-            </not>
-        </preConditions>
-        <comment>Add allergy_status field to the patient table</comment>
-        <addColumn tableName="patient">
-            <column name="allergy_status" type="varchar(50)" defaultValue="Unknown">
-                <constraints nullable="false" />
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="TRUNK-4548-MigrateAllergiesChangeSet1" author="dkayiwa">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <sqlCheck expectedResult="0">
-                    select count(*) from active_list al
-                    inner join active_list_allergy ala on al.active_list_id=ala.active_list_id
-                    where voided = 0 and active_list_type_id = (select active_list_type_id
-                    from active_list_type where name = 'Allergy')
-                </sqlCheck>
-            </not>
-        </preConditions>
-        <comment>Custom changeset to migrate allergies from old to new tables</comment>
-        <customChange class="org.openmrs.module.allergyapi.api.db.MigrateAllergiesChangeSet"></customChange>
-    </changeSet>
-
-    <changeSet id="RA-534-Migrate ENVIRONMENTAL to ENVIRONMENT" author="mgoodrich">
-        <update tableName="allergy">
-            <column name="allergen_type" value="ENVIRONMENT"/>
-            <where>allergen_type = 'ENVIRONMENTAL'</where>
-        </update>
-    </changeSet>
-
     <!--Create Chronic illness table
     -->
-    <changeSet id="RA-356-create-ChronicIllness-table-rev1" author="schege">
+    <changeSet id="Chronic" author="schege">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="Kenyaemr_ChronicIllness"/>
+                <tableExists tableName="kenyaemr_chronicillness"/>
             </not>
         </preConditions>
-        <comment>Create Kenyaemr_ChronicIllness table</comment>
-        <createTable tableName="Kenyaemr_ChronicIllness">
+        <comment>Create kenyaemr_chronicillness table</comment>
+        <createTable tableName="kenyaemr_chronicillness">
             <column name="illness_id" autoIncrement="true" type="int">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -157,7 +27,7 @@
                 <constraints nullable="true"/>
             </column>
             <column name="creator" type="int">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="date_created" type="datetime">
                 <constraints nullable="false"/>
@@ -172,21 +42,18 @@
             <column name="void_reason" type="varchar(255)"></column>
             <column name="uuid" type="char(38)"></column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="patient_id"
-                                 constraintName="ChronicIllness_patient_id_fk" referencedColumnNames="patient_id"
+        <addForeignKeyConstraint baseTableName="kenyaemr_chronicillness" baseColumnNames="patient_id"
+                                 constraintName="chronicIllness_patient_id_fk" referencedColumnNames="patient_id"
                                  referencedTableName="patient"/>
-        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="coded_illness"
+        <addForeignKeyConstraint baseTableName="kenyaemr_chronicillness" baseColumnNames="coded_illness"
                                  constraintName="chronicIllness_coded_illness_fk" referencedColumnNames="concept_id"
                                  referencedTableName="concept"/>
-        <addForeignKeyConstraint baseTableName="allergy" baseColumnNames="severity_concept_id"
-                                 constraintName="allergy_severity_concept_id_fk" referencedColumnNames="concept_id"
-                                 referencedTableName="concept"/>
-        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="creator" constraintName="ChronicIllness_creator_fk"
+        <addForeignKeyConstraint baseTableName="kenyaemr_chronicillness" baseColumnNames="creator" constraintName="ChronicIllness_creator_fk"
                                  referencedColumnNames="user_id" referencedTableName="users"/>
-        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="changed_by" constraintName="ChronicIllness_changed_by_fk"
+        <addForeignKeyConstraint baseTableName="kenyaemr_chronicillness" baseColumnNames="changed_by" constraintName="ChronicIllness_changed_by_fk"
                                  referencedColumnNames="user_id" referencedTableName="users"/>
-        <addForeignKeyConstraint baseTableName="Kenyaemr_ChronicIllness" baseColumnNames="voided_by"
-                                 constraintName="ChronicIllness_voided_by_fk" referencedColumnNames="user_id"
+        <addForeignKeyConstraint baseTableName="kenyaemr_chronicillness" baseColumnNames="voided_by"
+                                 constraintName="chronicIllness_voided_by_fk" referencedColumnNames="user_id"
                                  referencedTableName="users"/>
     </changeSet>
 

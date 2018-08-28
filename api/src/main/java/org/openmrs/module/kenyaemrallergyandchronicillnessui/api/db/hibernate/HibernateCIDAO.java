@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Patient;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.ChronicIllness;
 import org.openmrs.module.kenyaemrallergyandchronicillnessui.api.db.CIDAO;
 
@@ -16,8 +17,18 @@ public class HibernateCIDAO implements CIDAO {
     protected final Log log = LogFactory.getLog(this.getClass());
 
     private SessionFactory sessionFactory;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
-    public ChronicIllness saveChronicIllness(ChronicIllness chronicIllness) {
+    public ChronicIllness saveChronicIllness(ChronicIllness chronicIllness) throws DAOException {
+        log.info("chronic illness ==>"+chronicIllness);
         sessionFactory.getCurrentSession().saveOrUpdate(chronicIllness);
         return chronicIllness;
     }
@@ -40,11 +51,4 @@ public class HibernateCIDAO implements CIDAO {
         Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(ChronicIllness.class);
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 }

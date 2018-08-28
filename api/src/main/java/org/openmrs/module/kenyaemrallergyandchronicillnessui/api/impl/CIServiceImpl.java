@@ -17,6 +17,7 @@ public class CIServiceImpl extends BaseOpenmrsService implements CIService {
 
     @Override
     public ChronicIllness saveChronicIllness(ChronicIllness chronicIllness) {
+        log.info("chronic illness ==>"+chronicIllness);
         return cidao.saveChronicIllness(chronicIllness);
     }
 
