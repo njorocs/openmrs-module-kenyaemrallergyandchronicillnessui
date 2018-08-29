@@ -78,10 +78,10 @@ public class ChronicIllnessFormFragmentController {
         return chronicIllnessesOptions;
     }
 
-    public SimpleObject saveChronicIllness(@MethodParam("addUpdateChronicIllnessesForm") @BindParams EditChronicIllnessForm form, UiUtils ui) {
+    public void saveChronicIllness(@MethodParam("addUpdateChronicIllnessesForm") @BindParams EditChronicIllnessForm form, UiUtils ui) {
         ui.validate(form, form, null);
         ChronicIllness chronicIllness = form.save();
-        return SimpleObject.create("patientId", chronicIllness.getPatient());
+        //return SimpleObject.create("patientId", chronicIllness.getPatient());
 
     }
 
