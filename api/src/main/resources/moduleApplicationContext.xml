@@ -18,10 +18,10 @@
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<!-- Add here beans related to the API context -->
-	<bean id="kenyaemr.allergiesAndChronicIllnessesList.list"  factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemrallergiesandchronicillnessesList.home" />
+	<bean id="kenyaemr.chronicIllnessesList.list"  factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="kenyaemrchronicillnessesList.home" />
 		<constructor-arg value="Allergies and Chronic Illnesses" />
-		<constructor-arg value="kenyaemrallergyandchronicillnessui/allergiesAndChronicIllnessesList.page" />
+		<constructor-arg value="kenyaemrallergyandchronicillnessui/chronicIllnessesList.page" />
 		<constructor-arg value="SpeedPhasesReports:apps/example.png" />
 		<constructor-arg value="110200" />
 	</bean>

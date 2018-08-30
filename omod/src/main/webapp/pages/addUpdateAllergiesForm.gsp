@@ -1,7 +1,7 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [patient: patient, layout: "sidebar"])
     def menuItems = [
-            [label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("kenyaemrallergyandchronicillnessui", "allergiesAndChronicIllnessesList", [patient: patient, patientId: patient.patientId])]
+            [label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("kenyaemrallergyandchronicillnessui", "chronicIllnessesList", [patient: patient, patientId: patient.patientId])]
     ]
 %>
 
@@ -11,5 +11,5 @@
     </div>
 </div>
 <div class="ke-page-content">
-    ${ ui.includeFragment("kenyaemrallergyandchronicillnessui", "allergyAndChronicIllnessForm", [ patientId: patient.patientId, allergyId: allergyId != null? allergy.allergyId : null, returnUrl: ui.pageLink("kenyaemrallergyandchronicillnessui", "allergiesAndChronicIllnessesList", [patientId: patient.patientId]) ]) }
+    ${ ui.includeFragment("kenyaemrallergyandchronicillnessui", "allergyAndChronicIllnessForm", [ patientId: patient.patientId, allergyId: allergyId != null? allergy.allergyId : null, returnUrl: ui.pageLink("kenyaemrallergyandchronicillnessui", "chronicIllnessesList", [patientId: patient.patientId]) ]) }
 </div>
